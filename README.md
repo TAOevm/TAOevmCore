@@ -49,9 +49,10 @@ Skip the above commands if you have already updated the system and installed the
 Connect again to your server after reboot
 ```bash
   sudo -i
-  git clone https://github.com/TAO/TAOevmCore.git
+  git clone https://github.com/TAOevm/TAOevmCore.git
   cd TAOevmCore
-  ./node-setup --validator 1
+  chmod +x node-setup.sh
+  ./node-setup.sh --validator 1
 ```
 After you run node-setup, follow the on-screen instructions carefully and you'll get confirmation that the node was successfully installed on your system.
 
