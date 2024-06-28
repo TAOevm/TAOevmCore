@@ -1,7 +1,7 @@
 
 # TAO Blockchain Node
 
-This project aims to provide installation, running, and maintenance capabilities of **TAO validator node** for potential and existing TAO Blockchain backers. The consensus structure of this chain is delegated proof of stake "DPos" and is governed by the symbiosis of TAO's implementation of go-ethereum and our system contracts [https://github.com/TAO/System-Contracts/tree/main]. This repository has multiple release candidates inline so we recommend checking for updates for better functions and stability.
+This project aims to provide installation, running, and maintenance capabilities of **TAO validator node** for potential and existing TAO Blockchain backers. The consensus structure of this chain is delegated proof of stake "DPos" and is governed by the symbiosis of TAO's implementation of go-ethereum and our system contracts [https://github.com/TAOevm/System-Contracts/tree/main]. This repository has multiple release candidates inline so we recommend checking for updates for better functions and stability.
 
 ## System Requirements
 
