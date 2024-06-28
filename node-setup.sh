@@ -263,7 +263,14 @@ finalize(){
 
   echo -e "\n\n\t${GREEN}Now importing the snapshot"
   wget https://snapshots.taoevm.io/chaindata.tar.gz
-  tar -xvf $snapshotName $chaindataPath
+
+  # Create the directory if it does not exist
+  if [ ! -d "$chaindataPath" ]; then
+    mkdir -p $chaindataPath
+  fi
+
+  # Extract archive to the correct directory
+  tar -xvf $snapshotName -C $chaindataPath --strip-components=1
 
   echo -e "\n\n\tImport is done, now attempting to run the node${NC}"
   sleep 3
@@ -275,7 +282,6 @@ finalize(){
   fi
 
   ./node-start.sh --$type
-
 
   displayStatus
 }
