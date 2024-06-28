@@ -272,6 +272,11 @@ finalize(){
   # Extract archive to the correct directory
   tar -xvf $snapshotName -C $chaindataPath --strip-components=1
 
+  # Set proper permissions
+  echo -e "\n\n\t${GREEN}Setting directory permissions${NC}"
+  chown -R root:root /root/TAOevmCore/chaindata
+  chmod -R 755 /root/TAOevmCore/chaindata
+
   echo -e "\n\n\tImport is done, now attempting to run the node${NC}"
   sleep 3
   cd $nodePath
