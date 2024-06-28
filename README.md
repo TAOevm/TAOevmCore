@@ -20,8 +20,8 @@ To back the TAO blockchain you can become a validator. Full flow to become a val
 * Install this package **([See Installation](#installation))**
 * Download your newly created validator wallet from your server and import it into your metamask or preferred wallet. Fund this account with the appropriate TAO tokens needed to become a validator. Example command to download the wallet on your local PC. Only works for UNIX-based OSes or on any environment that can run the OpenSSH package:
 ```bash
-  scp -r root@<server_ip>:/root/Core-Blockchain/chaindata/node1/keystore
-  scp root@<server_ip>:/root/Core-Blockchain/chaindata/node1/pass.txt
+  scp -r root@<server_ip>:/root/TAOevmCore/chaindata/node1/keystore
+  scp root@<server_ip>:/root/TAOevmCore/chaindata/node1/pass.txt
 ```
 * On your server, start the node that you just installed **([See Usage/Example](#usageexamples))**
 * Once the node is started and confirmation is seen on your terminal, open the interactive console by attaching tmux session **([See Usage/Example](#usageexamples))**
@@ -49,8 +49,8 @@ Skip the above commands if you have already updated the system and installed the
 Connect again to your server after reboot
 ```bash
   sudo -i
-  git clone https://github.com/TAO/Core-Blockchain.git
-  cd Core-Blockchain
+  git clone https://github.com/TAO/TAOevmCore.git
+  cd TAOevmCore
   ./node-setup --validator 1
 ```
 After you run node-setup, follow the on-screen instructions carefully and you'll get confirmation that the node was successfully installed on your system.
