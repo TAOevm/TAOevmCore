@@ -89,6 +89,7 @@ To exit/detach from an interactive console
 ```text
 Press CTRL & b , release both keys, and press d
 ```
-
-
-
+To stop a node
+```text
+./node-stop.sh
+```
