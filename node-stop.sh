@@ -61,9 +61,11 @@ stopNode(){
 
     # Final check
     if [ -e "$nodePath/geth.ipc" ]; then
-      echo -e "${RED}Node $session is still running. Please check manually.${NC}"
+      echo -e "${RED}Node $session is still running. Killing tmux session...${NC}"
+      tmux kill-session -t "$session"
     else
       echo -e "${GREEN}Node $session stopped successfully.${NC}"
+      tmux kill-session -t "$session"
     fi
   else
     echo -e "${RED}Session $session does not exist.${NC}"
