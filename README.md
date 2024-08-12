@@ -51,8 +51,8 @@ Connect again to your server after reboot
   sudo -i
   git clone https://github.com/TAOevm/TAOevmCore.git
   cd TAOevmCore
-  chmod +x node-setup.sh
   ./node-setup.sh --validator 1
+  source ~/.bashrc
 ```
 After you run node-setup, follow the on-screen instructions carefully and you'll get confirmation that the node was successfully installed on your system.
 
@@ -68,6 +68,7 @@ Display help
 To create/install a validator node. Fresh first-time install
 ```bash
 ./node-setup.sh --validator 1
+source ~/.bashrc
 ```
 To run the validator node
 ```bash
@@ -89,7 +90,7 @@ To exit/detach from an interactive console
 ```text
 Press CTRL & b , release both keys, and press d
 ```
-To stop a node
-```text
-./node-stop.sh
+To stop a validator node
+```bash
+./node-stop.sh --validator
 ```

@@ -245,6 +245,62 @@ fetchNsetIP(){
   echo -e "\nIP=$(curl http://checkip.amazonaws.com)" >> ./.env
 }
 
+install_nvm() {
+  # Check if nvm is installed
+  if ! command -v nvm &> /dev/null; then
+    echo "Installing NVM..."
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+
+    # Source NVM scripts for the current session
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+    # Add NVM initialization to shell startup file
+    if [ -n "$BASH_VERSION" ]; then
+      SHELL_PROFILE="$HOME/.bashrc"
+    elif [ -n "$ZSH_VERSION" ]; then
+      SHELL_PROFILE="$HOME/.zshrc"
+    fi
+
+    if ! grep -q 'export NVM_DIR="$HOME/.nvm"' "$SHELL_PROFILE"; then
+      echo 'export NVM_DIR="$HOME/.nvm"' >> "$SHELL_PROFILE"
+      echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> "$SHELL_PROFILE"
+      echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> "$SHELL_PROFILE"
+    fi
+  else
+    echo "NVM is already installed."
+  fi
+
+  # Source NVM scripts (if not sourced already)
+  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+  # Install Node.js version 21.7.1 using nvm
+  echo "Installing Node.js version 21.7.1..."
+  nvm install 21.7.1
+
+  # Use the installed Node.js version
+  nvm use 21.7.1
+
+  # Verify the installation
+  node_version=$(node --version)
+  if [[ $node_version == v21.7.1 ]]; then
+    echo "Node.js version 21.7.1 installed successfully: $node_version"
+  else
+    echo "There was an issue installing Node.js version 21.7.1."
+  fi
+
+  source ~/.bashrc
+
+  npm install --global yarn
+  npm install --global pm2
+
+  source ~/.bashrc
+}
+
+
 finalize(){
   displayWelcome
   createRpc
@@ -277,16 +333,16 @@ finalize(){
   chown -R root:root /root/TAOevmCore/chaindata
   chmod -R 755 /root/TAOevmCore/chaindata
 
-  echo -e "\n\n\tImport is done, now attempting to run the node${NC}"
+  echo -e "\n\n\tImport is done, now configuring sync-helper${NC}"
   sleep 3
   cd $nodePath
-  if [ -e "$nodePath/chaindata/node1/.validator" ]; then
-    type=validator
-  else
-    type=rpc
-  fi
+  
 
-  ./node-start.sh --$type
+  install_nvm
+  cd plugins/sync-helper
+  yarn
+  cd ../../
+
 
   displayStatus
 }
