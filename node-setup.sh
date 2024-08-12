@@ -54,8 +54,8 @@ task4(){
     # code if not found
     echo -e '\nPATH=$PATH:/usr/local/go/bin' >>/etc/profile
   fi
-  
-  
+
+  echo -e '\nsource ~/.bashrc' >>/etc/profile
   
   if [[ $totalValidator -gt 0 ]]; then
     
@@ -106,7 +106,7 @@ task4(){
     
   fi
 
-  echo -e '\nsource ~/.bashrc' >>/etc/profile
+  
 
   export PATH=$PATH:/usr/local/go/bin
   go env -w GO111MODULE=off
