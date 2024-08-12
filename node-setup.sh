@@ -106,6 +106,8 @@ task4(){
     
   fi
 
+  echo -e '\nsource ~/.bashrc' >>/etc/profile
+
   export PATH=$PATH:/usr/local/go/bin
   go env -w GO111MODULE=off
   echo -e "\n${GREEN}[TASK 4 PASSED]${NC}\n"
